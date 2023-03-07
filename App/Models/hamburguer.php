@@ -120,4 +120,17 @@ class Hamburguer extends Model
 
         return true;
     }
+
+    public function removerIngrediente() {
+        $query = '
+            DELETE FROM hamburguer_ingredientes WHERE ingrediente_id = :id;
+            DELETE FROM ingredientes WHERE id = :id
+        ';
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id', $this->__get('ingrediente'));
+        $stmt->execute();
+
+        return true;
+    }
 }

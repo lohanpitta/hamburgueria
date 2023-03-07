@@ -55,6 +55,12 @@
                 'action' => 'registrarHamburguer'
             );
 
+            $routes['remover-ingrediente'] = Array(
+                'route' =>'/remover-ingrediente',
+                'controller' => 'AppController',
+                'action' => 'removerIngrediente'
+            );
+
             $this->setRoutes($routes);
         }
 

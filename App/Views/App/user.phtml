@@ -1,3 +1,11 @@
+<script>
+
+    function remover(id) {
+        location.href = '/remover-ingrediente?id=' + id
+    }
+
+</script>
+
 <main>
 
     <div class="row" id="painel">
@@ -37,7 +45,7 @@
                                 <div class="col-sm-9"><?= $valor['nome'] ?></div>
                                 <div class="col-sm-3 d-flex justify-content-end">
                                     <i class="fas fa-edit fa-lg text-info"></i>
-                                    <i class="fas fa-trash-alt fa-lg text-danger ml-3"></i>
+                                    <i class="fas fa-trash-alt fa-lg text-danger ml-3" onclick="remover(<?= $valor['id'] ?>)"></i>
                                 </div>
                             </div>
                         <?php } ?>

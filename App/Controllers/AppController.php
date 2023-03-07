@@ -57,9 +57,6 @@ class AppController extends Action {
     }
 
     public function registrarHamburguer() {
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
 
         if(empty($_POST['nome']) || empty($_POST['descricao']) || empty($_POST['ingredientes'])){
            header('LOCATION: /user?hamburguers&erro');
@@ -73,6 +70,16 @@ class AppController extends Action {
 
         if($db->registrarHamburguer()) {
             header('LOCATION: /user?hamburguers');
+        }
+    }
+
+    public function removerIngrediente() {
+
+        $db = Container::getModel('hamburguer');
+        $db->__set('ingrediente', $_GET['id']);
+       
+        if( $db->removerIngrediente()) {
+            header('LOCATION: /user');
         }
     }
 }
