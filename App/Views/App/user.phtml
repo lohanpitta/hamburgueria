@@ -32,11 +32,15 @@
                     <div>
                         <h2>Ingredientes Salvos</h2>
 
-                        <ul>
-                            <?php foreach ($this->view->ingredientes as $chave => $valor) { ?>
-                                <li><?= $valor['nome'] ?></li>
-                            <?php } ?>
-                        </ul>
+                        <?php foreach ($this->view->ingredientes as $chave => $valor) { ?>
+                            <div class="row mb-1 d-flex align-items-center tarefa ingredientes">
+                                <div class="col-sm-9"><?= $valor['nome'] ?></div>
+                                <div class="col-sm-3 d-flex justify-content-end">
+                                    <i class="fas fa-edit fa-lg text-info"></i>
+                                    <i class="fas fa-trash-alt fa-lg text-danger ml-3"></i>
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
 
                 <?php } ?>
