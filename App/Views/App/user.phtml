@@ -1,0 +1,79 @@
+<main>
+
+    <div class="row" id="painel">
+
+        <div class="col-4">
+            <div class="row">
+                <a href="/user">Ingredientes</a>
+            </div>
+
+            <div class="row">
+                <a style="border-bottom: 1px solid #C0C0C0;" href="/user?hamburguers">Hamburguers</a>
+            </div>
+
+        </div>
+
+        <div class="col-8">
+            <div id="conteudo">
+                <?php if (empty($_GET)) { ?>
+
+                    <div class="mb-3">
+                        <!-- Ingredientes -->
+                        <h2>Adicione novos ingredientes</h2>
+
+                        <div class="w-50">
+                            <form action="/registrar-ingrediente" method="post">
+                                <input name="nomeIngrediente" class="form-control mb-1" type="text" placeholder="Exp: Ovo">
+                                <button class="btn btn-block btn-primary" type="submit">Salvar</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2>Ingredientes Salvos</h2>
+
+                        <ul>
+                            <?php foreach ($this->view->ingredientes as $chave => $valor) { ?>
+                                <li><?= $valor['nome'] ?></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+
+                <?php } ?>
+
+                <!-- Hamburguers -->
+                <?php if (isset($_GET['hamburguers'])) { ?>
+
+                    <form action="/registraHamburguer" method="post">
+                        <div class="form-group">
+                            <label for="nomeHamburguer">Nome do hamburguer</label>
+                            <input name='nome' id="nomeHamburguer" class="form-control" name="nome" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descricaoHamburguer">Descricao</label>
+                            <textarea name='descricao' id="descricaoHamburguer" class="form-control"></textarea>
+                        </div>
+
+                        <?php foreach ($this->view->ingredientes as $chave => $valor) { ?>
+
+                            <div class="form-check form-check-inline">
+                                <input name="ingredientes[]" class="form-check-input" type="checkbox" value="<?= $valor['id'] ?>">
+                                <label class="form-check-label"><?= $valor['nome'] ?></label>
+                            </div>
+
+                        <?php } ?>
+                        <button class="btn btn-block btn-primary mt-3">Registrar</button>
+                    </form>
+
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+
+    <?php
+    echo '<pre>';
+    // print_r($this->view->ingredientes);
+    echo '</pre>'
+    ?>
+</main>

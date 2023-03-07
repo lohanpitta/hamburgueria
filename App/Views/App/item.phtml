@@ -1,0 +1,25 @@
+<main>
+
+    <?php $dados = $this->view->item; ?>
+
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <div class="card" style="max-width:900px; height: auto;">
+                <img class="card-img-top img-fluid" src="https://source.unsplash.com/1920x1080/?hamburguer" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"><?= $dados['nome'] ?></h5>
+                    <p class="card-text"><?= $dados['descricao'] ?></p>
+                    <ul>
+                        <?php foreach (explode(',', $dados['ingredientes']) as $ingrediente => $nome) { ?>
+                            <li><?= $nome ?></li>
+                        <?php } ?>
+                    </ul>
+                    <a href="#" class="btn btn-primary btn-block">Adicionar ao carrinho</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+</main>

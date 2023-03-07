@@ -1,0 +1,30 @@
+<main>
+
+    <div class="row">
+        <?php foreach($this->view->itens as $hamburguer => $dados) {?>
+            <div class="col-sm-6 col-md-4 card-deck mb-md-5">
+                <div class="card" style="width: 18rem;">
+                    <a href="/item?id=<?=$dados['id']?>"><img class="card-img-top" src="https://source.unsplash.com/286x180?hamburguer" alt="Card image cap"></a>
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $dados['nome'] ?></h5>
+                        <p class="card-text mb-a"><?= $dados['descricao'] ?></p>
+                        
+                        <ul>
+                            <?php foreach(explode(',', $dados['ingredientes']) as $ingrediente=>$nome) {?>
+                                <li><?= $nome ?></li>
+                            <?php } ?>
+                        </ul>
+                    </div> 
+
+                    <div class="px-3 pb-3" style="margin-top: -15px">
+                        <a href="#" class="btn btn-primary btn-block">Adicionar ao carrinho</a>
+                    </div> 
+
+                </div>
+        </div>
+    <?php }?>
+
+    </div>
+</div>
+
+</main>
