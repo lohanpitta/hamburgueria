@@ -4,6 +4,16 @@
         location.href = '/remover-ingrediente?id=' + id
     }
 
+    function editar(id) {
+        console.log('ingrediente_' + id)
+        let ingrediente =$('#ingrediente_' + id)
+
+        let form = '<form action="/editar-ingrediente?id=' + id + '" method="post" class="row"><input name="valor" class="col-8 form-control ml-2" type="text"> <button class="col-3 btn btn-primary" type="submit">Atualizar</button></form>'
+
+        ingrediente.html(form)
+
+    }
+
 </script>
 
 <main>
@@ -42,9 +52,13 @@
 
                         <?php foreach ($this->view->ingredientes as $chave => $valor) { ?>
                             <div class="row mb-1 d-flex align-items-center tarefa ingredientes">
-                                <div class="col-sm-9"><?= $valor['nome'] ?></div>
+
+                                <div class="col-sm-9" id="ingrediente_<?= $valor['id']?>">
+                                    <?= $valor['nome'] ?>
+                                </div>
+
                                 <div class="col-sm-3 d-flex justify-content-end">
-                                    <i class="fas fa-edit fa-lg text-info"></i>
+                                    <i class="fas fa-edit fa-lg text-info" onclick="editar(<?= $valor['id']?>)"></i>
                                     <i class="fas fa-trash-alt fa-lg text-danger ml-3" onclick="remover(<?= $valor['id'] ?>)"></i>
                                 </div>
                             </div>

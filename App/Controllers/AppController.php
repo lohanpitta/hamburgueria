@@ -82,5 +82,14 @@ class AppController extends Action {
             header('LOCATION: /user');
         }
     }
+
+    public function editarIngrediente() {
+        $db = Container::getModel('hamburguer');
+        $db->__set('ingrediente', $_GET['id']);
+        $db->__set('nome', $_POST['valor']);
+
+        $db->editarIngrediente();
+        header('LOCATION: /user');
+    }
 }
 ?>

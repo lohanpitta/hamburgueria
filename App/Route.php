@@ -61,6 +61,12 @@
                 'action' => 'removerIngrediente'
             );
 
+            $routes['editar-ingrediente'] = Array(
+                'route' =>'/editar-ingrediente',
+                'controller' => 'AppController',
+                'action' => 'editarIngrediente'
+            );
+
             $this->setRoutes($routes);
         }
 

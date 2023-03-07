@@ -133,4 +133,14 @@ class Hamburguer extends Model
 
         return true;
     }
+
+    public function editarIngrediente() {
+        $query = 'UPDATE ingredientes SET nome = :novo_valor WHERE id = :id';
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id', $this->__get('ingrediente'));
+        $stmt->bindValue(':novo_valor', $this->__get('nome'));
+        $stmt->execute();
+        return $this;
+    }
 }
