@@ -1,19 +1,20 @@
 <script>
-
     function remover(id) {
         location.href = '/remover-ingrediente?id=' + id
     }
 
     function editar(id) {
-        console.log('ingrediente_' + id)
-        let ingrediente =$('#ingrediente_' + id)
+        let ingrediente = $(`#ingrediente${id}`);
 
-        let form = '<form action="/editar-ingrediente?id=' + id + '" method="post" class="row"><input name="valor" class="col-8 form-control ml-2" type="text"> <button class="col-3 btn btn-primary" type="submit">Atualizar</button></form>'
+        let template = `
+                        <form action="/editar-ingrediente?id=${id}" method="post" class="row">
+                            <input name="valor" class="col-8 form-control ml-2" type="text">
+                            <button class="col-3 btn btn-primary" type="submit">Atualizar</button>
+                        </form>
+                     `;
 
-        ingrediente.html(form)
-
+        ingrediente.html(template);
     }
-
 </script>
 
 <main>
@@ -53,12 +54,12 @@
                         <?php foreach ($this->view->ingredientes as $chave => $valor) { ?>
                             <div class="row mb-1 d-flex align-items-center tarefa ingredientes">
 
-                                <div class="col-sm-9" id="ingrediente_<?= $valor['id']?>">
+                                <div class="col-sm-9" id="ingrediente_<?= $valor['id'] ?>">
                                     <?= $valor['nome'] ?>
                                 </div>
 
                                 <div class="col-sm-3 d-flex justify-content-end">
-                                    <i class="fas fa-edit fa-lg text-info" onclick="editar(<?= $valor['id']?>)"></i>
+                                    <i class="fas fa-edit fa-lg text-info" onclick="editar(<?= $valor['id'] ?>)"></i>
                                     <i class="fas fa-trash-alt fa-lg text-danger ml-3" onclick="remover(<?= $valor['id'] ?>)"></i>
                                 </div>
                             </div>
@@ -91,6 +92,31 @@
                         <?php } ?>
                         <button class="btn btn-block btn-primary mt-3">Registrar</button>
                     </form>
+
+                    <div class="mt-4">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col-1">Id</th>
+                                    <th scope="col-3">Nome</th>
+                                    <th scope="col-4">Descrição</th>
+                                    <th scope="col-4">Ingredientes</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                            </tbody>
+
+
+                        </table>
+
+                    </div>
 
                 <?php } ?>
             </div>
