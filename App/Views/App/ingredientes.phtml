@@ -1,0 +1,29 @@
+<div class="mb-3">
+    <!-- Ingredientes -->
+    <h2>Adicione novos ingredientes</h2>
+
+    <div class="w-50">
+        <form action="/registrar-ingrediente" method="post">
+            <input name="nomeIngrediente" class="form-control mb-1" type="text" placeholder="Exp: Ovo">
+            <button class="btn btn-block btn-primary" type="submit">Salvar</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <h2>Ingredientes Salvos</h2>
+
+    <?php foreach ($this->view->ingredientes as $chave => $valor) { ?>
+        <div class="row mb-1 d-flex align-items-center tarefa ingredientes">
+
+            <div class="col-sm-9" id="ingrediente_<?= $valor['id'] ?>">
+                <?= $valor['nome'] ?>
+            </div>
+
+            <div class="col-sm-3 d-flex justify-content-end">
+                <i class="fas fa-edit fa-lg text-info" onclick="editar(<?= $valor['id'] ?>)"></i>
+                <i class="fas fa-trash-alt fa-lg text-danger ml-3" onclick="remover(<?= $valor['id'] ?>)"></i>
+            </div>
+        </div>
+    <?php } ?>
+</div>

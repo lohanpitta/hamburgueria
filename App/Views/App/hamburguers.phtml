@@ -1,0 +1,46 @@
+<form action="/registraHamburguer" method="post">
+    <div class="form-group">
+        <label for="nomeHamburguer">Nome do hamburguer</label>
+        <input name='nome' id="nomeHamburguer" class="form-control" name="nome" type="text">
+    </div>
+
+    <div class="form-group">
+        <label for="descricaoHamburguer">Descricao</label>
+        <textarea name='descricao' id="descricaoHamburguer" class="form-control"></textarea>
+    </div>
+
+    <?php foreach ($this->view->ingredientes as $chave => $valor) { ?>
+
+        <div class="form-check form-check-inline">
+            <input name="ingredientes[]" class="form-check-input" type="checkbox" value="<?= $valor['id'] ?>">
+            <label class="form-check-label"><?= $valor['nome'] ?></label>
+        </div>
+
+    <?php } ?>
+    <button class="btn btn-block btn-primary mt-3">Registrar</button>
+</form>
+
+<div class="mt-4">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col-1">Id</th>
+                <th scope="col-3">Nome</th>
+                <th scope="col-4">Descrição</th>
+                <th scope="col-4">Ingredientes</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+        </tbody>
+
+
+    </table>
+
+</div>
