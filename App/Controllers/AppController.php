@@ -43,7 +43,7 @@ class AppController extends Action {
 
         $this->view->ingredientes = $lista;
 
-        $this->render('user');
+        $this->render('user', 'layout-user');
     }
 
     public function registrarIngrediente() {

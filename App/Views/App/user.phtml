@@ -1,59 +1,10 @@
-<script>
-    function remover(id) {
-        location.href = '/remover-ingrediente?id=' + id
-    }
+<?php if (empty($_GET)) {
 
-    function editar(id) {
-        let ingrediente = $(`#ingrediente_${id}`);
+    require_once 'ingredientes.phtml';
+} ?>
 
-        let template = `
-                        <form action="/editar-ingrediente?id=${id}" method="post" class="row">
-                            <input name="valor" class="col-8 form-control ml-2" type="text">
-                            <button class="col-3 btn btn-primary" type="submit">Atualizar</button>
-                        </form>
-                     `;
+<!-- Hamburguers -->
+<?php if (isset($_GET['hamburguers'])) {
 
-        ingrediente.html(template);
-    }
-</script>
-
-<main>
-
-    <div class="row" id="painel">
-
-        <div class="col-4">
-            <div class="row">
-                <a href="/user">Ingredientes</a>
-            </div>
-
-            <div class="row">
-                <a style="border-bottom: 1px solid #C0C0C0;" href="/user?hamburguers">Hamburguers</a>
-            </div>
-
-        </div>
-
-        <div class="col-8">
-            <div id="conteudo">
-                <?php if (empty($_GET)) { 
-                    
-                    require_once 'ingredientes.phtml';
-
-                } ?>
-                    
-                <!-- Hamburguers -->
-                <?php if (isset($_GET['hamburguers'])) { 
-                  
-                  require_once 'hamburguers.phtml';
-
-                } ?>
-
-            </div>
-        </div>
-    </div>
-
-    <?php
-    echo '<pre>';
-    // print_r($this->view->ingredientes);
-    echo '</pre>'
-    ?>
-</main>
+    require_once 'hamburguers.phtml';
+} ?>
