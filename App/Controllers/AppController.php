@@ -38,10 +38,12 @@ class AppController extends Action {
 
         $this->validaAutenticacao();
 
-        $ingredientes = Container::getModel('hamburguer');
-        $lista = $ingredientes->getIngredientes();
+        $db = Container::getModel('hamburguer');
+        $listaIngredientes = $db->getIngredientes();
+        $listaHamburguers = $db->getAll();
 
-        $this->view->ingredientes = $lista;
+        $this->view->ingredientes = $listaIngredientes;
+        $this->view->hamburguers = $listaHamburguers;
 
         $this->render('user', 'layout-user');
     }
