@@ -67,6 +67,12 @@
                 'action' => 'editarIngrediente'
             );
 
+            $routes['carrinho'] = Array(
+                'route' =>'/carrinho',
+                'controller' => 'CarrinhoController',
+                'action' => 'carrinho'
+            );
+
             $this->setRoutes($routes);
         }
 
