@@ -7,11 +7,26 @@
                     <a href="/item?id=<?=$dados['id']?>"><img class="card-img-top" src="https://source.unsplash.com/286x180?hamburguer" alt="Card image cap"></a>
                     <div class="card-body">
                         <h5 class="card-title"><?= $dados['nome'] ?></h5>
-                        <p class="card-text mb-a"><?= $dados['descricao'] ?></p>
+                        <?php 
+                            $max_descricao = 100;
+                            if (strlen($dados['descricao']) > $max_descricao) {
+                                $descricao_resumida = substr($dados['descricao'], 0, $max_descricao) . '...';
+                            } else {
+                                $descricao_resumida = $dados['descricao'];
+                            }
+                        ?>
+                        <p class="card-text mb-a"><?= $descricao_resumida ?></p>
                         
                         <ul>
-                            <?php foreach(explode(',', $dados['ingredientes']) as $ingrediente=>$nome) {?>
+                            <?php 
+                                $ingredientes = explode(',', $dados['ingredientes']);
+                                $primeiros_ingredientes = array_slice($ingredientes, 0, 4);
+                                foreach($primeiros_ingredientes as $ingrediente=>$nome) {
+                            ?>
                                 <li><?= $nome ?></li>
+                            <?php } ?>
+                            <?php if (count($ingredientes) > 4) { ?>
+                                <li>...</li>
                             <?php } ?>
                         </ul>
                     </div> 
