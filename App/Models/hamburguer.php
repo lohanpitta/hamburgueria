@@ -11,6 +11,7 @@ class Hamburguer extends Model
     private $nome;
     private $descricao;
     private $ingrediente;
+    private $valor;
 
     public function __get($atributo)
     {
@@ -97,13 +98,14 @@ class Hamburguer extends Model
         print_r($this->ingrediente);
         
         $query = '
-            INSERT INTO hamburguer(nome, descricao)VALUES(:nome, :descricao);
+            INSERT INTO hamburguer(nome, descricao, valor)VALUES(:nome, :descricao, :valor);
             SELECT LAST_INSERT_ID() as novo_id;
         ';
 
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':nome', $this->__get('nome'));
         $stmt->bindValue(':descricao', $this->__get('descricao'));
+        $stmt->bindValue(':valor', $this->__get('valor'));
         $stmt->execute();
 
         $hamburguer_id = $this->db->lastInsertId();

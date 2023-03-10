@@ -6,10 +6,14 @@ namespace App\Controllers;
 use \MF\Controller\Action;
 use \MF\Model\Container;
 
-class AppController extends Action {
+class CarrinhoController extends Action {
 
     public function carrinho() {
-        
+        $this->render('carrinho');
+    }
+
+    public function adicionarAoCarrinho() {
+
     }
 
 

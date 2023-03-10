@@ -68,6 +68,10 @@ class AppController extends Action {
         $db->__set('nome', $_POST['nome']);
         $db->__set('descricao', $_POST['descricao']);
         $db->__set('ingrediente', $_POST['ingredientes']);
+        
+        $valor = str_replace('R$ ', '', $_POST['valor']);
+        $valor = str_replace(',', '.', $valor);
+        $db->__set('valor', $valor);
 
 
         if($db->registrarHamburguer()) {
