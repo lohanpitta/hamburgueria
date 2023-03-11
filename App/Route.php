@@ -73,6 +73,12 @@
                 'action' => 'carrinho'
             );
 
+            $routes['adicionar-carrinho'] = Array(
+                'route' =>'/adicionar-carrinho',
+                'controller' => 'CarrinhoController',
+                'action' => 'adicionarAoCarrinho'
+            );
+
             $this->setRoutes($routes);
         }
 

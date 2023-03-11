@@ -21,3 +21,47 @@
     border-radius: 5px;
     height: 50px;
 }
+
+#lista-carrinho{
+    list-style: none;
+}
+
+.img-carrinho {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
+
+.btn-car {
+    text-decoration: none;
+    display: inline;
+    background: none;
+    border: none;
+}
+
+.btn-car i {
+    color: #9e9e9e;
+    font-size: 25px;
+}
+
+.btn-car i:hover {
+    color: #60d3fa;
+}
+
+.quantidade-itens {
+    font-size: 25px;
+}
+
+.valor-item {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.item-carrinho {
+    border: 1px;
+    border-style: solid;
+    border-color: #eaeaea;
+    border-left: 0;
+    border-right: 0;
+    padding: 15px 0 15px 0;
+}
