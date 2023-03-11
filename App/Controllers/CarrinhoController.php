@@ -13,10 +13,12 @@ class CarrinhoController extends Action {
     }
 
     public function adicionarAoCarrinho() {
-
+        $carrinho = Container::getModel('Carrinho');
+        
+        echo json_encode($_POST[]);
     }
-
-
+    
+    
 }
 
 ?>
