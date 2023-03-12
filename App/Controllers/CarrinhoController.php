@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 //Recursos do framework
+
+use Exception;
 use \MF\Controller\Action;
 use \MF\Model\Container;
 
@@ -47,6 +49,24 @@ class CarrinhoController extends Action {
         echo json_encode($carrinho->hamburguerAtualizado());
         
         // echo 'Seu hamburguer foi adicionado ao carrinho!!!';
+    }
+
+    public function removerDoCarinho() {
+        session_start();
+
+        $carrinho = Container::getModel('Carrinho');
+
+        $carrinho->__set('hamburguer_id', $_POST['id_hamburguer']);
+        $carrinho->__set('usuario_id', $_SESSION['id']);
+
+        $carrinho->removeQuantidade();
+
+        $afetado = $carrinho->hamburguerAtualizado();
+        if ($afetado[0]['quantidade'] < 1) {
+            $carrinho->remover();
+        }
+
+        echo json_encode($afetado);
     }
     
     

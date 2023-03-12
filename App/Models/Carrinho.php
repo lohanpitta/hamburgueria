@@ -21,7 +21,7 @@ class Carrinho extends Model
         $this->$atributo = $valor;
     }
 
-    function getAll()
+    public function getAll()
     {
         $query = '
             SELECT
@@ -45,7 +45,7 @@ class Carrinho extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function verificaHamburguer()
+    public function verificaHamburguer()
     {
         $query = '
             SELECT 
@@ -66,7 +66,7 @@ class Carrinho extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function adicionar()
+    public function adicionar()
     {
         $query = '
             INSERT INTO carrinho(id_usuario, id_hamburguer, quantidade, valor)
@@ -83,7 +83,7 @@ class Carrinho extends Model
         $stmt->execute();
     }
 
-    function updateQuantidade() {
+    public function updateQuantidade() {
         $query = '
             UPDATE 
                 carrinho
@@ -93,7 +93,6 @@ class Carrinho extends Model
             WHERE 
                 id_usuario = :usuario_id AND id_hamburguer = :hamburguer_id;
             
-            SELECT * FROM carrinho WHERE id_usuario = :usuario_id AND id_hamburguer = :hamburguer_id
         ';
 
         $stmt = $this->db->prepare($query);
@@ -104,7 +103,7 @@ class Carrinho extends Model
 
     }
 
-    function hamburguerAtualizado() {
+    public function hamburguerAtualizado() {
         $query = '
                 SELECT 
                     * 
@@ -119,6 +118,40 @@ class Carrinho extends Model
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function removeQuantidade() {
+        $query = '
+            UPDATE 
+                carrinho
+            SET 
+                quantidade = quantidade - 1, 
+                valor = (SELECT valor FROM hamburguer WHERE id = :hamburguer_id) * (quantidade)
+            WHERE 
+                id_usuario = :usuario_id AND id_hamburguer = :hamburguer_id;
+            
+        ';
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':hamburguer_id', $this->__get('hamburguer_id'));
+        $stmt->bindValue(':usuario_id', $this->__get('usuario_id'));
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    public function remover() {
+
+        $query = '
+            DELETE FROM
+                carrinho
+            WHERE
+                id_usuario = :usuario_id AND id_hamburguer = :hamburguer_id
+        ';
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':usuario_id', $this->__get('usuario_id'));
+        $stmt->bindValue(':hamburguer_id', $this->__get('hamburguer_id'));
+        $stmt->execute();
     }
     
 }

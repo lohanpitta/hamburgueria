@@ -2,7 +2,8 @@
     $(document).ready(function() {
         $('.btn-adicionar').click(function(event) {
 
-            let id = $(this).attr('id')
+            let id = $(this).closest('.pai').attr('id')
+            console.log(id)
             $.ajax({
                 url: '/adicionar-carrinho',
                 method: 'POST',
@@ -17,7 +18,35 @@
                     $(`#valor${id}`).html(`R$ ${valor}`)
                     console.log(response)
                 }
-            });
+
+            })
+        })
+
+        $('.btn-remover').click(function(event) {
+
+            let id = $(this).closest('.pai').attr('id')
+            console.log(id)
+            $.ajax({
+                    url: '/remover-carrinho',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        id_hamburguer: id
+                    },
+                    success: function(response) {
+                        let quantidade = response['0']['quantidade']
+
+                        if(quantidade == 0) {
+                            $(`#${id}`).remove()
+                            
+                        }
+
+                        let valor = response['0']['valor']
+                        $(`#quantidade_${id}`).html(quantidade)
+                        $(`#valor${id}`).html(`R$ ${valor}`)
+                        console.log(response)
+                    }
+                })
         })
     })
 </script>
@@ -29,33 +58,33 @@
 
             <div class="col-8">
 
-            <?php  foreach($this->view->hamburguers as $chave => $hamburguer) { ?>
-                <div class="row d-flex align-items-center item-carrinho">
-                    <!-- Imagem -->
-                    <div class="col-3">
-                        <img class="img-fluid" src="https://source.unsplash.com/286x180?hamburguer">
-                    </div>
+                <?php foreach ($this->view->hamburguers as $chave => $hamburguer) { ?>
+                    <div class="row d-flex align-items-center item-carrinho pai" id="<?= $hamburguer['id'] ?>">
+                        <!-- Imagem -->
+                        <div class="col-3">
+                            <img class="img-fluid" src="https://source.unsplash.com/286x180?hamburguer">
+                        </div>
 
-                    <!-- Detalhes -->
-                    <div class="col-4">
-                        <h6><?= $hamburguer['nome']?></h6>
-                        <p><?= $hamburguer['descricao']?></p>
-                    </div>
+                        <!-- Detalhes -->
+                        <div class="col-4">
+                            <h6><?= $hamburguer['nome'] ?></h6>
+                            <p><?= $hamburguer['descricao'] ?></p>
+                        </div>
 
-                    <!-- Quantidade de itens -->
-                    <div class="col-3">
-                        <button class="btn-car btn-remover"><i class="fas fa-minus-square"></i></button>
-                        <span class="quantidade-itens" id="quantidade_<?= $hamburguer['id'] ?>"><?= $hamburguer['quantidade']?></span>
-                        <button class="btn-car btn-adicionar" id="<?= $hamburguer['id']?>"><i class="fas fa-plus-square"></i></button>
-                    </div>
+                        <!-- Quantidade de itens -->
+                        <div class="col-3">
+                            <button class="btn-car btn-remover"><i class="fas fa-minus-square"></i></button>
+                            <span class="quantidade-itens" id="quantidade_<?= $hamburguer['id'] ?>"><?= $hamburguer['quantidade'] ?></span>
+                            <button class="btn-car btn-adicionar"><i class="fas fa-plus-square"></i></button>
+                        </div>
 
-                    <!-- Valor -->
-                    <div class="col-2">
-                        <span class="valor-item" id="valor<?= $hamburguer['id'] ?>">R$ <?= $hamburguer['valor']?></span>
-                    </div>
+                        <!-- Valor -->
+                        <div class="col-2">
+                            <span class="valor-item" id="valor<?= $hamburguer['id'] ?>">R$ <?= $hamburguer['valor'] ?></span>
+                        </div>
 
-                </div>
-            <?php } ?>
+                    </div>
+                <?php } ?>
 
             </div>
             <div class="col-4"></div>

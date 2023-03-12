@@ -79,6 +79,12 @@
                 'action' => 'adicionarAoCarrinho'
             );
 
+            $routes['remover-carrinho'] = Array(
+                'route' =>'/remover-carrinho',
+                'controller' => 'CarrinhoController',
+                'action' => 'removerDoCarinho'
+            );
+
             $this->setRoutes($routes);
         }
 
