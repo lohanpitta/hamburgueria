@@ -15,7 +15,9 @@
                     let quantidade = response['0']['quantidade']
                     let valor = response['0']['valor']
                     $(`#quantidade_${id}`).html(quantidade)
+                    $(`#item_${id}`).find('.quantidade-item').html(quantidade)
                     $(`#valor${id}`).html(`R$ ${valor}`)
+                    valorTotal()
                     console.log(response)
                 }
 
@@ -27,31 +29,45 @@
             let id = $(this).closest('.pai').attr('id')
             console.log(id)
             $.ajax({
-                    url: '/remover-carrinho',
-                    method: 'POST',
-                    dataType: 'json',
-                    data: {
-                        id_hamburguer: id
-                    },
-                    success: function(response) {
-                        let quantidade = response['0']['quantidade']
+                url: '/remover-carrinho',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    id_hamburguer: id
+                },
+                success: function(response) {
+                    let quantidade = response['0']['quantidade']
 
-                        if(quantidade == 0) {
-                            $(`#${id}`).remove()
-                            
-                        }
-
-                        let valor = response['0']['valor']
-                        $(`#quantidade_${id}`).html(quantidade)
-                        $(`#valor${id}`).html(`R$ ${valor}`)
-                        console.log(response)
+                    if (quantidade == 0) {
+                        $(`#${id}`).remove()
+                        $(`#item_${id}`).remove()
                     }
-                })
+
+                    let valor = response['0']['valor']
+                    $(`#quantidade_${id}`).html(quantidade)
+                    $(`#item_${id}`).find('.quantidade-item').html(quantidade)
+                    $(`#valor${id}`).html(`R$ ${valor}`)
+                    valorTotal()
+                    console.log(response)
+                }
+            })
         })
+
+        function valorTotal() {
+            $.ajax({
+                url: 'total-carrinho',
+                method: 'POST',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data)
+                    $('#total').html(data['total']);
+                }
+            });
+        }
     })
 </script>
 
-<main>
+<main onload="valorTotal()">
     <div class="container">
 
         <div class="row" id="painel">
@@ -87,6 +103,36 @@
                 <?php } ?>
 
             </div>
-            <div class="col-4"></div>
+            <div class="col-4 d-flex align-items-center justify-content-end">
+
+                <div class="carrinho-total">
+                    <div class="row">
+                        <div class="col">
+                            <h4>Resumo do pedido</h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <?php foreach ($this->view->hamburguers as $chave => $hamburguer) { ?>
+                                <p id="item_<?= $hamburguer['id'] ?>"><span class="quantidade-item"><?= $hamburguer['quantidade'] ?></span> <span style="color: red;">x</span> <?= $hamburguer['nome'] ?></p>
+                            <?php } ?>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <h6>Total: <span id="total"><?= $this->view->total?></span></h6>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <a href="" class="btn btn-primary btn-block">Finalizar Pedido</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 </main>

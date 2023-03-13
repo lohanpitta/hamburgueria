@@ -11,28 +11,35 @@ use \MF\Model\Container;
 class CarrinhoController extends Action {
 
     public function carrinho() {
-        session_start();
+        $this->validaAutenticacao();
         
         $carrinho = Container::getModel('Carrinho');
 
         $carrinho->__set('usuario_id', $_SESSION['id']);
         
-        // echo '<pre>';
-        // print_r($carrinho->getAll());
-        // echo '</pre>';
 
-        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-            echo $carrinho->getAll();
-            exit;
-        }
+        // if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        //     echo $carrinho->getAll();
+        //     exit;
+        // }
 
         $this->view->hamburguers = $carrinho->getAll();
+        $this->view->total = $carrinho->total()['total'];
 
         $this->render('carrinho');
     }
 
-    public function adicionarAoCarrinho() {
+    public function validaAutenticacao() {
+
         session_start();
+
+        if (!isset($_SESSION['id']) || empty($_SESSION['id']) || !isset($_SESSION['nome']) || empty($_SESSION['nome'])) {
+            header('LOCATION: /?login=erro');
+        }
+    }
+
+    public function adicionarAoCarrinho() {
+        $this->validaAutenticacao();
 
         $carrinho = Container::getModel('Carrinho');
         
@@ -52,7 +59,7 @@ class CarrinhoController extends Action {
     }
 
     public function removerDoCarinho() {
-        session_start();
+        $this->validaAutenticacao();
 
         $carrinho = Container::getModel('Carrinho');
 
@@ -67,6 +74,23 @@ class CarrinhoController extends Action {
         }
 
         echo json_encode($afetado);
+    }
+
+    public function total() {
+        $this->validaAutenticacao();
+
+        $carrinho = Container::getModel('Carrinho');
+
+        $carrinho->__set('usuario_id', $_SESSION['id']);
+
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            echo json_encode($carrinho->total());
+            exit;
+        }
+
+        return $carrinho->total();
+        
+
     }
     
     

@@ -65,3 +65,16 @@
     border-right: 0;
     padding: 15px 0 15px 0;
 }
+
+.carrinho-total {
+    text-align: end;
+}
+
+.carrinho-total p {
+    line-height: 10px;
+}
+
+.carrinho-total h6 {
+    font-size: 22px;
+    font-weight: 700;
+}

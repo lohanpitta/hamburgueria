@@ -85,6 +85,12 @@
                 'action' => 'removerDoCarinho'
             );
 
+            $routes['total-carrinho'] = Array(
+                'route' =>'/total-carrinho',
+                'controller' => 'CarrinhoController',
+                'action' => 'total'
+            );
+
             $this->setRoutes($routes);
         }
 

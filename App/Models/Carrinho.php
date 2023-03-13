@@ -153,5 +153,22 @@ class Carrinho extends Model
         $stmt->bindValue(':hamburguer_id', $this->__get('hamburguer_id'));
         $stmt->execute();
     }
+
+    public function total() {
+        $query = '
+            SELECT
+                SUM(valor) as total
+            FROM
+                carrinho
+            WHERE
+                id_usuario = :usuario_id
+        ';
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':usuario_id', $this->__get('usuario_id'));
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
 }
