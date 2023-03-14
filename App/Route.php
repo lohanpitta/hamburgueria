@@ -91,6 +91,12 @@
                 'action' => 'total'
             );
 
+            $routes['finalizar-pedido'] = Array(
+                'route' =>'/finalizar',
+                'controller' => 'AppController',
+                'action' => 'finalizar'
+            );
+
             $this->setRoutes($routes);
         }
 

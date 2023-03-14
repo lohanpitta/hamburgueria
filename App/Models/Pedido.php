@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Models;
+
+use MF\Model\Model;
+use PDO;
+
+class Pedido extends Model {
+
+    private $usuario_id;
+    private $valor_total;
+    private $pedido_id;
+    private $hamburguer_id;
+    private $quantidade;
+    private $valor;
+
+    public function __get($atributo) {
+        return $this->$atributo;
+    }
+
+    public function __set($atributo, $valor) {
+        $this->$atributo = $valor;
+    }
+
+    public function setPedido() {
+
+        $query = '
+            INSERT INTO pedidos(id_usuario, valor_total) VALUES (:usuario_id, :valor_total);
+        ';
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':usuario_id', $this->__get('usuario_id'));
+        $stmt->bindValue(':valor_total', $this->__get('valor_total'));
+        $stmt->execute();
+
+        return $this->db->lastInsertId();
+    }
+
+    PUBLIC FUNCTION insereItem() {
+        $query = '
+            INSERT INTO itens_pedido(id_pedido, id_hamburguer, quantidade, valor)
+            VALUES (:pedido_id, :hamburguer_id, :quantidade, :valor);
+        ';
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':pedido_id', $this->__get('pedido_id'));
+        $stmt->bindValue(':hamburguer_id', $this->__get('hamburguer_id'));
+        $stmt->bindValue(':quantidade', $this->__get('quantidade'));
+        $stmt->bindValue(':valor', $this->__get('valor'));
+        $stmt->execute();
+    }
+
+}

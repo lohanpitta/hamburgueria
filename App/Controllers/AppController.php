@@ -59,6 +59,7 @@ class AppController extends Action {
     }
 
     public function registrarHamburguer() {
+        $this->validaAutenticacao();
 
         if(empty($_POST['nome']) || empty($_POST['descricao']) || empty($_POST['ingredientes'])){
            header('LOCATION: /user?hamburguers&erro');
@@ -80,6 +81,7 @@ class AppController extends Action {
     }
 
     public function removerIngrediente() {
+        $this->validaAutenticacao();
 
         $db = Container::getModel('hamburguer');
         $db->__set('ingrediente', $_GET['id']);
@@ -90,12 +92,48 @@ class AppController extends Action {
     }
 
     public function editarIngrediente() {
+        $this->validaAutenticacao();
+
         $db = Container::getModel('hamburguer');
         $db->__set('ingrediente', $_GET['id']);
         $db->__set('nome', $_POST['valor']);
 
         $db->editarIngrediente();
         header('LOCATION: /user');
+    }
+
+    public function finalizar() {
+        $this->validaAutenticacao();
+
+        $db_carrinho = Container::getModel('Carrinho');
+        $db_pedido = Container::getModel('Pedido');
+        $usuario_id = $_SESSION['id'];
+
+        //Recupera os hamburguers do cliente no carrinho
+        $db_carrinho->__set('usuario_id', $usuario_id);
+        $hamburguers = $db_carrinho->getAll();
+        
+        if(empty($hamburguers)) {
+            return;
+        }
+        
+        //Define os valores que serão atribuidos a coluna no pedido
+        $db_pedido->__set('usuario_id', $usuario_id);
+        $db_pedido->__set('valor_total', $db_carrinho->total()['total']);
+        $id_pedido = $db_pedido->setPedido();
+        $db_pedido->__set('pedido_id', $id_pedido);
+
+        //Associa os hamburguers do carrinho ao pedido criado
+        foreach($hamburguers as $chave => $hamburguer) {
+            $db_pedido->__set('hamburguer_id', $hamburguer['id']);
+            $db_pedido->__set('quantidade', $hamburguer['quantidade']);
+            $db_pedido->__set('valor', $hamburguer['valor']);
+            $db_pedido->insereItem();
+
+            //remove esse hamburguer do carrinho
+            $db_carrinho->__set('hamburguer_id', $hamburguer['id']);
+            $db_carrinho->remover();
+        }
     }
 }
 ?>
