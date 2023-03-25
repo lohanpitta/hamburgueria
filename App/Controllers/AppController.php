@@ -45,6 +45,10 @@ class AppController extends Action {
         $this->view->ingredientes = $listaIngredientes;
         $this->view->hamburguers = $listaHamburguers;
 
+        $db_pedidos = Container::getModel('pedido');
+        $listaPedidos = $db_pedidos->getAll();
+        $this->view->pedidos = $listaPedidos;
+
         $this->render('user', 'layout-user');
     }
 

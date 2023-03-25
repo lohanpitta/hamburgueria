@@ -36,7 +36,7 @@ class Pedido extends Model {
         return $this->db->lastInsertId();
     }
 
-    PUBLIC FUNCTION insereItem() {
+    public function insereItem() {
         $query = '
             INSERT INTO itens_pedido(id_pedido, id_hamburguer, quantidade, valor)
             VALUES (:pedido_id, :hamburguer_id, :quantidade, :valor);
@@ -48,6 +48,31 @@ class Pedido extends Model {
         $stmt->bindValue(':quantidade', $this->__get('quantidade'));
         $stmt->bindValue(':valor', $this->__get('valor'));
         $stmt->execute();
+    }
+
+    public function getAll() {
+        $query = "
+            SELECT
+                p.id AS id_pedido,
+                u.nome AS nome_usuario,
+                GROUP_CONCAT(CONCAT(ip.quantidade, ' - ', h.nome) SEPARATOR ', ') AS hamburguers_pedido,
+                p.valor_total as valor,
+                p.status_pedido as status
+            FROM
+                pedidos AS p
+                JOIN itens_pedido AS ip ON p.id = ip.id_pedido
+                JOIN hamburguer AS h ON ip.id_hamburguer = h.id
+                JOIN usuarios AS u ON p.id_usuario = u.id
+                GROUP BY p.id;
+    
+            ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
     }
 
 }

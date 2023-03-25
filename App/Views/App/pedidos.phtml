@@ -1,0 +1,32 @@
+<div class="mb-3">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Pedido</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Hamburguers</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach ($this->view->pedidos as $chave => $valor) { ?>
+                <tr>
+                    <th><?= $valor['id_pedido'] ?></th>
+                    <td><?= $valor['nome_usuario'] ?></td>
+                    <td><?= $valor['hamburguers_pedido'] ?></td>
+                    <td><?= $valor['valor'] ?></td>
+                    <td><?= $valor['status'] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+
+    </table>
+</div>
+
+<?php
+    // echo '<pre>';
+    // print_r($this->view);
+    // echo '</pre>';
+?>
