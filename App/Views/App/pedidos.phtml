@@ -7,26 +7,54 @@
                 <th scope="col">Hamburguers</th>
                 <th scope="col">Valor</th>
                 <th scope="col">Status</th>
+                <th>Opções</th>
+
             </tr>
         </thead>
 
         <tbody>
-            <?php foreach ($this->view->pedidos as $chave => $valor) { ?>
-                <tr>
-                    <th><?= $valor['id_pedido'] ?></th>
-                    <td><?= $valor['nome_usuario'] ?></td>
-                    <td><?= $valor['hamburguers_pedido'] ?></td>
-                    <td><?= $valor['valor'] ?></td>
-                    <td><?= $valor['status'] ?></td>
-                </tr>
-            <?php } ?>
+            <?php include ('dadosPedidos.phtml') ?>
         </tbody>
 
     </table>
 </div>
 
+<script>
+    $(document).ready(function() {
+        $('i.icons-pedidos').click(function() {
+            let id = $(this).attr('id');
+
+            let id_pedido = id.split('_')[1];
+            let funcao = id.split('_')[0];
+
+            let elemento = $(this)
+
+            $.ajax({
+                url: '/modifica_pedido',
+                method: 'POST',
+                data: {
+                    funcao: funcao,
+                    id_pedido: id_pedido
+                },
+                dataType: 'html',
+                success: function(response) {
+                    // status = response[0]['status_pedido']
+                    // elemento.closest('tr').find('.status').html(response[0]['status_pedido'])
+                    console.log(response)
+                    $('tbody').html(response)
+                    
+                },
+                error: function(xhr, status, error) {
+                    console.log('Deu errado')
+                }
+            });
+        });
+
+    });
+</script>
+
 <?php
-    // echo '<pre>';
-    // print_r($this->view);
-    // echo '</pre>';
+// echo '<pre>';
+// print_r($this->view);
+// echo '</pre>';
 ?>

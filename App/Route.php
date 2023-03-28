@@ -97,6 +97,12 @@
                 'action' => 'finalizar'
             );
 
+            $routes['modifica_pedido'] = Array(
+                'route' =>'/modifica_pedido',
+                'controller' => 'AppController',
+                'action' => 'modificaPedido'
+            );
+
             $this->setRoutes($routes);
         }
 

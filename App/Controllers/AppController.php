@@ -139,5 +139,30 @@ class AppController extends Action {
             $db_carrinho->remover();
         }
     }
+
+    public function modificaPedido() {
+
+        $db = Container::getModel('Pedido');
+        $db->__set('pedido_id', $_POST['id_pedido']);
+
+        $funcao = $_POST['funcao'];
+
+        if($funcao == 'preparar') {
+            $db->preparar();
+            $this->view->pedidos = $db->getAll();
+            echo include('../App/Views/App/dadosPedidos.phtml');
+        }
+
+        if($funcao == 'pronto') {
+            $db->pronto();
+            echo json_encode($db->getLast());
+        }
+
+        if($funcao == 'apagar') {
+            $db->apagar();
+            echo json_encode($db->getLast());
+        }
+
+    }
 }
 ?>

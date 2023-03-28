@@ -63,7 +63,7 @@ class Pedido extends Model {
                 JOIN itens_pedido AS ip ON p.id = ip.id_pedido
                 JOIN hamburguer AS h ON ip.id_hamburguer = h.id
                 JOIN usuarios AS u ON p.id_usuario = u.id
-                GROUP BY p.id;
+                GROUP BY p.id
     
             ";
 
@@ -71,8 +71,33 @@ class Pedido extends Model {
             $stmt->execute();
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    public function preparar() {
+        $query = "
+        UPDATE pedidos SET status_pedido = 'preparando' WHERE id = :pedido_id;
+        ";
 
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':pedido_id', $this->__get('pedido_id'));
+        $stmt->execute();
+    }
+
+    public function getLast() {
+        $query = "
+            SELECT
+                *
+            FROM
+                pedidos
+            WHERE
+                id = :pedido_id
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':pedido_id', $this->__get('pedido_id'));
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

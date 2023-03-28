@@ -1,0 +1,55 @@
+<?php foreach ($this->view->pedidos as $chave => $valor) { ?>
+    <tr>
+        <th><?= $valor['id_pedido'] ?></th>
+        <td><?= $valor['nome_usuario'] ?></td>
+        <td><?= $valor['hamburguers_pedido'] ?></td>
+        <td><?= $valor['valor'] ?></td>
+        <td class="status"><?= $valor['status'] ?></td>
+        <td class="d-flex justify-content-around">
+            <!-- Preparar -->
+            <?php
+            if ($valor['status'] == 'pendente') { ?>
+                <i class="fa-solid fa-gears icons-pedidos" id="preparar_<?= $valor['id_pedido'] ?>"></i>
+            <?php } ?>
+
+            <!-- Preparando -->
+            <?php if ($valor['status'] == 'preparando') { ?>
+                <i class="fa-solid fa-check icons-pedidos" id="pronto_<?= $valor['id_pedido'] ?>"></i>
+            <?php } ?>
+
+            <!-- Deletar -->
+            <i class="fa-solid fa-rectangle-xmark icons-pedidos" id="apagar_<?= $valor['id_pedido'] ?>"></i>
+        </td>
+    </tr>
+<?php } ?>
+
+<script>
+    $(document).ready(function() {
+        $('i.icons-pedidos').click(function() {
+            let id = $(this).attr('id');
+
+            let id_pedido = id.split('_')[1];
+            let funcao = id.split('_')[0];
+
+            let elemento = $(this)
+
+            $.ajax({
+                url: '/modifica_pedido',
+                method: 'POST',
+                data: {
+                    funcao: funcao,
+                    id_pedido: id_pedido
+                },
+                dataType: 'html',
+                success: function(response) {
+                    $('tbody').html(response)
+
+                },
+                error: function(xhr, status, error) {
+                    console.log('Deu errado')
+                }
+            });
+        });
+
+    });
+</script>
