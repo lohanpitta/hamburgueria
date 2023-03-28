@@ -19,40 +19,6 @@
     </table>
 </div>
 
-<script>
-    $(document).ready(function() {
-        $('i.icons-pedidos').click(function() {
-            let id = $(this).attr('id');
-
-            let id_pedido = id.split('_')[1];
-            let funcao = id.split('_')[0];
-
-            let elemento = $(this)
-
-            $.ajax({
-                url: '/modifica_pedido',
-                method: 'POST',
-                data: {
-                    funcao: funcao,
-                    id_pedido: id_pedido
-                },
-                dataType: 'html',
-                success: function(response) {
-                    // status = response[0]['status_pedido']
-                    // elemento.closest('tr').find('.status').html(response[0]['status_pedido'])
-                    console.log(response)
-                    $('tbody').html(response)
-                    
-                },
-                error: function(xhr, status, error) {
-                    console.log('Deu errado')
-                }
-            });
-        });
-
-    });
-</script>
-
 <?php
 // echo '<pre>';
 // print_r($this->view);

@@ -83,21 +83,28 @@ class Pedido extends Model {
         $stmt->execute();
     }
 
-    public function getLast() {
+    public function pronto() {
         $query = "
-            SELECT
-                *
-            FROM
-                pedidos
-            WHERE
-                id = :pedido_id
+            UPDATE pedidos SET status_pedido = 'pronto' WHERE id = :pedido_id;
         ";
 
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':pedido_id', $this->__get('pedido_id'));
         $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function apagar() {
+        $query1 = "DELETE FROM itens_pedido WHERE id_pedido = :pedido_id;";
+        $query2 = "DELETE FROM pedidos WHERE id = :pedido_id;";
+    
+        $stmt = $this->db->prepare($query1);
+        $stmt->bindValue(':pedido_id', $this->__get('pedido_id'));
+        $stmt->execute();
+    
+        $stmt = $this->db->prepare($query2);
+        $stmt->bindValue(':pedido_id', $this->__get('pedido_id'));
+        $stmt->execute();
+    }
+    
 
 }

@@ -149,20 +149,18 @@ class AppController extends Action {
 
         if($funcao == 'preparar') {
             $db->preparar();
-            $this->view->pedidos = $db->getAll();
-            echo include('../App/Views/App/dadosPedidos.phtml');
         }
 
         if($funcao == 'pronto') {
             $db->pronto();
-            echo json_encode($db->getLast());
         }
 
         if($funcao == 'apagar') {
             $db->apagar();
-            echo json_encode($db->getLast());
         }
 
+        $this->view->pedidos = $db->getAll();
+        echo include('../App/Views/App/dadosPedidos.phtml');
     }
 }
 ?>
