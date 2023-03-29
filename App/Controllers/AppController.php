@@ -138,6 +138,8 @@ class AppController extends Action {
             $db_carrinho->__set('hamburguer_id', $hamburguer['id']);
             $db_carrinho->remover();
         }
+
+        header('LOCATION: /home');
     }
 
     public function modificaPedido() {

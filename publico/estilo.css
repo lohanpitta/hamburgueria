@@ -87,3 +87,15 @@
     font-size: 20px;
     color: #4e4f4f;
 }
+
+.fa-solid.pendente {
+    color:  #4e4f4f;
+}
+
+.fa-solid.pronto {
+    color: green;
+}
+
+.fa-solid.apagar {
+    color: red;
+}
