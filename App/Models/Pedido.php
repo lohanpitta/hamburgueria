@@ -93,6 +93,16 @@ class Pedido extends Model {
         $stmt->execute();
     }
 
+    public function finalizar() {
+        $query = "
+            UPDATE pedidos SET status_pedido = 'finalizado' WHERE id = :pedido_id;
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':pedido_id', $this->__get('pedido_id'));
+        $stmt->execute();
+    }
+
     public function apagar() {
         $query1 = "DELETE FROM itens_pedido WHERE id_pedido = :pedido_id;";
         $query2 = "DELETE FROM pedidos WHERE id = :pedido_id;";
@@ -104,6 +114,35 @@ class Pedido extends Model {
         $stmt = $this->db->prepare($query2);
         $stmt->bindValue(':pedido_id', $this->__get('pedido_id'));
         $stmt->execute();
+    }
+
+    public function getMeusPedidos() {
+        $query = "
+        SELECT
+            p.id AS id_pedido,
+            u.nome AS nome_usuario,
+            CONCAT('[', GROUP_CONCAT(JSON_OBJECT('nome', h.nome, 'quantidade', ip.quantidade)), ']') AS hamburguers_pedido,
+            p.valor_total AS valor,
+            p.status_pedido AS status
+        FROM
+            pedidos AS p
+            JOIN itens_pedido AS ip ON p.id = ip.id_pedido
+            JOIN hamburguer AS h ON ip.id_hamburguer = h.id
+            JOIN usuarios AS u ON p.id_usuario = u.id
+        WHERE
+            p.id_usuario = :usuario_id
+        GROUP BY 
+            p.id;
+    
+
+
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':usuario_id', $this->__get('usuario_id'));
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
 

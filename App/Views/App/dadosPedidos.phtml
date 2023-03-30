@@ -17,6 +17,11 @@
                 <i class="fa-solid fa-check icons-pedidos pronto" id="pronto_<?= $valor['id_pedido'] ?>"></i>
             <?php } ?>
 
+            <!-- Finalizar -->
+            <?php if ($valor['status'] == 'pronto') { ?>
+                <i class="fa-solid fa-thumbtack icons-pedidos finalizar" id="finalizar_<?= $valor['id_pedido'] ?>"></i>
+            <?php } ?>
+
             <!-- Deletar -->
             <i class="fa-solid fa-rectangle-xmark icons-pedidos apagar" id="apagar_<?= $valor['id_pedido'] ?>"></i>
         </td>

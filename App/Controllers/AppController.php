@@ -49,6 +49,11 @@ class AppController extends Action {
         $listaPedidos = $db_pedidos->getAll();
         $this->view->pedidos = $listaPedidos;
 
+        $db_pedidos->__set('usuario_id', $_SESSION['id']);
+        $listaMeusPedidos = $db_pedidos->getMeusPedidos();
+
+        $this->view->meusPedidos = $listaMeusPedidos;
+
         $this->render('user', 'layout-user');
     }
 
@@ -139,7 +144,7 @@ class AppController extends Action {
             $db_carrinho->remover();
         }
 
-        header('LOCATION: /home');
+        header('LOCATION: /user?meus_pedidos');
     }
 
     public function modificaPedido() {
@@ -155,6 +160,10 @@ class AppController extends Action {
 
         if($funcao == 'pronto') {
             $db->pronto();
+        }
+
+        if($funcao == 'finalizar') {
+            $db->finalizar();
         }
 
         if($funcao == 'apagar') {

@@ -96,6 +96,22 @@
     color: green;
 }
 
+.fa-solid.finalizar {
+    color: orange;
+}
+
 .fa-solid.apagar {
     color: red;
+}
+
+.card-color {
+    font-weight: 500;
+}
+
+.card-color, .card-color li {
+    background-color: #C0C0C0;
+}
+
+.quantidade-item-pedido {
+    font-weight: 500;
 }

@@ -19,6 +19,7 @@
 
                 $_SESSION['id'] = $usuario->__get('id');
                 $_SESSION['nome'] = $usuario->__get('nome');
+                $_SESSION['tipo'] = $usuario->__get('tipo');
 
                 header('Location: /home');
 
