@@ -1,20 +1,33 @@
-<?php if (empty($_GET)) {
+<?php
 
-    require_once 'ingredientes.phtml';
-} ?>
+    if (empty($_GET)) {
+        if($_SESSION['tipo'] == '2') {
+            require_once 'ingredientes.phtml';
+        } else if($_SESSION['tipo'] == '1') {
+            require_once 'meusPedidos.phtml';
+        }
+    }
 
-<!-- Hamburguers -->
-<?php if (isset($_GET['hamburguers'])) {
+    // <!-- Hamburguers -->
+    if (isset($_GET['hamburguers'])) {
+        verificadorDePermissao();
+        require_once 'hamburguers.phtml';
+    }
 
-    require_once 'hamburguers.phtml';
-} ?>
+    if (isset($_GET['pedidos'])) {
+        verificadorDePermissao();
+        require_once 'pedidos.phtml';
+    }
 
-<?php if (isset($_GET['pedidos'])) {
+    if (isset($_GET['meus_pedidos'])) {
+        verificadorDePermissao();
+        require_once 'meusPedidos.phtml';
+    }
 
-    require_once 'pedidos.phtml';
-} ?>
-
-<?php if (isset($_GET['meus_pedidos'])) {
-
-    require_once 'meusPedidos.phtml';
-} ?>
+    
+    function verificadorDePermissao() {
+        if($_SESSION['tipo'] == '1') {
+            header('LOCATION: /user');
+        }
+    }
+?>

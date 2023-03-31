@@ -84,19 +84,24 @@
             <div class="row" id="painel">
 
                 <div class="col-4">
-                    <!-- Ingredientes -->
-                    <div class="row">
-                        <a class="link-painel" href="/user">Ingredientes</a>
-                    </div>
-                    <!-- Hamburguers -->
-                    <div class="row">
-                        <a class="link-painel" href="/user?hamburguers">Hamburguers</a>
-                    </div>
+                    <?php
 
-                    <!-- Pedidos Adm -->
-                    <div class="row">
-                        <a class="link-painel" href="/user?pedidos">Pedidos</a>
-                    </div>
+                    if ($_SESSION['tipo'] == '2') { ?>
+                        <!-- Ingredientes -->
+                        <div class="row">
+                            <a class="link-painel" href="/user">Ingredientes</a>
+                        </div>
+                        <!-- Hamburguers -->
+                        <div class="row">
+                            <a class="link-painel" href="/user?hamburguers">Hamburguers</a>
+                        </div>
+
+                        <!-- Pedidos Adm -->
+                        <div class="row">
+                            <a class="link-painel" href="/user?pedidos">Pedidos</a>
+                        </div>
+
+                    <?php } ?>
 
                     <!-- Meus pedidos -->
                     <div class="row">

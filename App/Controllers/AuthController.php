@@ -12,7 +12,7 @@
             $usuario->__set('email', $_POST['email']);
             $usuario->__set('senha', $_POST['senha']);
 
-            $usuario->autenticar(); 
+            $usuario->autenticar();
 
             if(!empty($usuario->__get('id')) && !empty($usuario->__get('nome'))){
                 session_start();

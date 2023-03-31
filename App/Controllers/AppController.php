@@ -35,9 +35,8 @@ class AppController extends Action {
     }
 
     public function user() {
-
         $this->validaAutenticacao();
-
+        
         $db = Container::getModel('hamburguer');
         $listaIngredientes = $db->getIngredientes();
         $listaHamburguers = $db->getAll();
@@ -148,6 +147,7 @@ class AppController extends Action {
     }
 
     public function modificaPedido() {
+        $this->validaAutenticacao();
 
         $db = Container::getModel('Pedido');
         $db->__set('pedido_id', $_POST['id_pedido']);
