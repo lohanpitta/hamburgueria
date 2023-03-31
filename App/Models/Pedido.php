@@ -130,7 +130,7 @@ class Pedido extends Model {
             JOIN hamburguer AS h ON ip.id_hamburguer = h.id
             JOIN usuarios AS u ON p.id_usuario = u.id
         WHERE
-            p.id_usuario = :usuario_id
+            p.id_usuario = :usuario_id AND p.status_pedido != 'finalizado'
         GROUP BY 
             p.id;
     

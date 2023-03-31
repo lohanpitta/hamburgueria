@@ -9,6 +9,18 @@
     border-top: 1px solid #C0C0C0;
     /* border-bottom: 1px solid #C0C0C0; */
     padding: 15px 0 15px 0;
+
+}
+
+#painel a.link-painel {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #808080;
+    font-weight: 500;
+}
+
+#painel a.link-painel:hover {
+    color: #5a5a5a
 }
 
 #conteudo {
@@ -115,3 +127,16 @@
 .quantidade-item-pedido {
     font-weight: 500;
 }
+
+.alert-info {
+    border-color: #6cb2eb;
+    color: #31708f;
+    background-color: #d9edf7;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px;
+    margin: 50px auto;
+    max-width: 500px;
+    border-radius: 10px;
+  }
+  

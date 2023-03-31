@@ -1,5 +1,14 @@
 <div class="container">
 
+    <?php if(empty($this->view->meusPedidos)) { ?>
+        
+        <div class="alert alert-info text-center" role="alert">
+            <h4 class="alert-heading">Nenhum pedido ativo</h4>
+            <p>Não encontramos nenhum pedido ativo. Assim que você finalizar sua compra, ela aparecerá aqui.</p>
+        </div>
+
+    <?php } else { ?>
+
     <?php foreach ($this->view->meusPedidos as $chave => $valor) { ?>
         <div class="card card-color">
             <div class="card-header d-flex cabecalho-pedidos">
@@ -16,10 +25,10 @@
                                 <img src="https://source.unsplash.com/286x180?hamburguer" class="img-fluid" style="width: 200; height: 100px;" alt="Hambúrguer 1">
                             </div>
                             <div class="col-md-6">
-                                <h5 class="card-title"><?=$valor->nome?></h5>
+                                <h5 class="card-title"><?= $valor->nome ?></h5>
                             </div>
                             <div class="col-md-3">
-                                <span class="quantidade-item-pedido">Quantidade: <?=$valor->quantidade?></span>
+                                <span class="quantidade-item-pedido">Quantidade: <?= $valor->quantidade ?></span>
                             </div>
                         </div>
                     </li>
@@ -28,7 +37,7 @@
 
             </ul>
         </div>
-    <?php } ?>
+    <?php }} ?>
 
 </div>
 
