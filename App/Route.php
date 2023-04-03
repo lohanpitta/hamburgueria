@@ -13,6 +13,12 @@
                 'action' => 'index'
             );
 
+            $routes['cadastrar-se'] = Array(
+                'route' =>'/cadastrar-se',
+                'controller' => 'indexController',
+                'action' => 'cadastrar'
+            );
+
             $routes['home'] = Array(
                 'route' =>'/home',
                 'controller' => 'AppController',
@@ -29,6 +35,12 @@
                 'route' =>'/autenticar',
                 'controller' => 'AuthController',
                 'action' => 'autenticar'
+            );
+
+            $routes['cadastrar'] = Array(
+                'route' =>'/cadastrar',
+                'controller' => 'AuthController',
+                'action' => 'cadastrar'
             );
 
             $routes['sair'] = Array(

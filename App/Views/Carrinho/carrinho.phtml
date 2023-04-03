@@ -39,8 +39,7 @@
                     let quantidade = response['0']['quantidade']
 
                     if (quantidade == 0) {
-                        $(`#${id}`).remove()
-                        $(`#item_${id}`).remove()
+                        location.reload(true)
                     }
 
                     let valor = response['0']['valor']
@@ -67,72 +66,86 @@
     })
 </script>
 
-<main onload="valorTotal()">
+<main onload="valorTotal()" class="mt-5">
     <div class="container">
 
         <div class="row" id="painel">
 
-            <div class="col-8">
+            <?php if (empty($this->view->hamburguers)) { ?>
 
-                <?php foreach ($this->view->hamburguers as $chave => $hamburguer) { ?>
-                    <div class="row d-flex align-items-center item-carrinho pai" id="<?= $hamburguer['id'] ?>">
-                        <!-- Imagem -->
-                        <div class="col-3">
-                            <img class="img-fluid" src="https://source.unsplash.com/286x180?hamburguer">
-                        </div>
-
-                        <!-- Detalhes -->
-                        <div class="col-4">
-                            <h6><?= $hamburguer['nome'] ?></h6>
-                            <p><?= $hamburguer['descricao'] ?></p>
-                        </div>
-
-                        <!-- Quantidade de itens -->
-                        <div class="col-3">
-                            <button class="btn-car btn-remover"><i class="fas fa-minus-square"></i></button>
-                            <span class="quantidade-itens" id="quantidade_<?= $hamburguer['id'] ?>"><?= $hamburguer['quantidade'] ?></span>
-                            <button class="btn-car btn-adicionar"><i class="fas fa-plus-square"></i></button>
-                        </div>
-
-                        <!-- Valor -->
-                        <div class="col-2">
-                            <span class="valor-item" id="valor<?= $hamburguer['id'] ?>">R$ <?= $hamburguer['valor'] ?></span>
-                        </div>
-
-                    </div>
-                <?php } ?>
-
-            </div>
-            <div class="col-4 d-flex align-items-center justify-content-end">
-
-                <div class="carrinho-total">
-                    <div class="row">
-                        <div class="col">
-                            <h4>Resumo do pedido</h4>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <?php foreach ($this->view->hamburguers as $chave => $hamburguer) { ?>
-                                <p id="item_<?= $hamburguer['id'] ?>"><span class="quantidade-item"><?= $hamburguer['quantidade'] ?></span> <span style="color: red;">x</span> <?= $hamburguer['nome'] ?></p>
-                            <?php } ?>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <h6>Total: <span id="total"><?= $this->view->total?></span></h6>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <a href="/finalizar" class="btn btn-primary btn-block">Finalizar Pedido</a>
-                        </div>
-                    </div>
+                <div class="alert alert-info text-center" role="alert">
+                    <h4 class="alert-heading">Carrinho Vazio!</h4>
+                    <p>Parece que você ainda não adicionou nenhum item no seu carrinho.</p>
                 </div>
 
-            </div>
+            <?php } else { ?>
+
+                <div class="col-8">
+
+                    <?php foreach ($this->view->hamburguers as $chave => $hamburguer) { ?>
+                        <div class="row d-flex align-items-center item-carrinho pai" id="<?= $hamburguer['id'] ?>">
+                            <!-- Imagem -->
+                            <div class="col-3">
+                                <img class="img-fluid" src="https://source.unsplash.com/286x180?hamburguer">
+                            </div>
+
+                            <!-- Detalhes -->
+                            <div class="col-4">
+                                <h6><?= $hamburguer['nome'] ?></h6>
+                                <p><?= $hamburguer['descricao'] ?></p>
+                            </div>
+
+                            <!-- Quantidade de itens -->
+                            <div class="col-3">
+                                <button class="btn-car btn-remover"><i class="fas fa-minus-square"></i></button>
+                                <span class="quantidade-itens" id="quantidade_<?= $hamburguer['id'] ?>"><?= $hamburguer['quantidade'] ?></span>
+                                <button class="btn-car btn-adicionar"><i class="fas fa-plus-square"></i></button>
+                            </div>
+
+                            <!-- Valor -->
+                            <div class="col-2">
+                                <span class="valor-item" id="valor<?= $hamburguer['id'] ?>">R$ <?= $hamburguer['valor'] ?></span>
+                            </div>
+
+                        </div>
+                    <?php } ?>
+
+                </div>
+                <div class="col-4 d-flex align-items-center justify-content-end">
+
+                    <div class="carrinho-total">
+                        <div class="row">
+                            <div class="col">
+                                <h4>Resumo do pedido</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <?php foreach ($this->view->hamburguers as $chave => $hamburguer) { ?>
+                                    <p id="item_<?= $hamburguer['id'] ?>"><span class="quantidade-item"><?= $hamburguer['quantidade'] ?></span> <span style="color: red;">x</span> <?= $hamburguer['nome'] ?></p>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <h6>Total: <span id="total"><?= $this->view->total ?></span></h6>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <a href="/finalizar" class="btn btn-primary btn-block">Finalizar Pedido</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            <?php } ?>
         </div>
 </main>
+
+<?php
+    // print_r($this->view->hamburguers);
+?>

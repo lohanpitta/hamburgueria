@@ -19,5 +19,9 @@
 
         }
 
+        public function cadastrar() {
+            $this->render('cadastrar', 'layout-index');
+        }
+
     }
 ?>

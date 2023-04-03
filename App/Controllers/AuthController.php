@@ -28,6 +28,23 @@
             }
         }
 
+        public function cadastrar() {
+            $usuario = Container::getModel('Usuario');
+
+            $usuario->__set('nome', $_POST['nome']);
+            $usuario->__set('email', $_POST['email']);
+            $usuario->__set('senha', $_POST['senha']);
+
+            if($usuario->validaCadastro()) {
+                if(empty($usuario->getUsuarioPorEmail())) {
+                    $usuario->salvar();
+                    $this->autenticar();
+                } else {
+                    echo 'não está vazio';
+                }
+            }
+        }
+
         public function sair() {
             session_start();
             session_destroy();
