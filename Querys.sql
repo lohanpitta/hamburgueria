@@ -3,6 +3,7 @@ CREATE TABLE 'usuarios'(
     nome varchar(50) NOT NULL,
     email varchar(250) NOT NULL,
     senha varchar(32) NOT NULL
+    tipo_usuario int ENUM('1', '2') DEFAULT '1'
 );
 
 CREATE TABLE hamburguer (
@@ -39,6 +40,7 @@ CREATE TABLE pedidos(
 	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_usuario int NOT NULL,
     valor_total DECIMAL(10,2) NOT NULL,
+    staus_pedido ENUM ('pendente', 'preparando', 'pronto', 'finalizado') DEFAULT 'pendente',
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
