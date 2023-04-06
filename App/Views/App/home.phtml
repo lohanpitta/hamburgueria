@@ -1,27 +1,18 @@
 <script>
     $(document).ready(function() {
         $('.add-car').click(function(event) {
-
             event.preventDefault();
-
-            let id = $(this).attr('id')
-            $.ajax({
-                url: '/adicionar-carrinho',
-                method: 'POST',
-                data: {
-                    id_hamburguer: id
-                },
-                success: function(response) {
-                    $('#conteudo-modal').html('Adicionado ao carrinho!')
-                    $('#myModal').modal('show');
-                }
+            let id = $(this).attr('id');
+            $.post('/adicionar-carrinho', {
+                id_hamburguer: id
+            }, function(response) {
+                $('#conteudo-modal').text('Adicionado ao carrinho!');
+                $('#myModal').modal('show');
             });
-        })
-    })
+        });
+    });
 </script>
-
 <main>
-
     <div class="row justify-content-center">
         <?php foreach ($this->view->itens as $hamburguer => $dados) { ?>
             <div class="col-sm-6 col-md-4 card-deck mb-md-5">
@@ -31,39 +22,18 @@
                         <h5 class="card-title"><?= $dados['nome'] ?></h5>
                         <?php
                         $max_descricao = 100;
-                        if (strlen($dados['descricao']) > $max_descricao) {
-                            $descricao_resumida = substr($dados['descricao'], 0, $max_descricao) . '...';
-                        } else {
-                            $descricao_resumida = $dados['descricao'];
-                        }
+                        $descricao_resumida = (strlen($dados['descricao']) > $max_descricao) ? substr($dados['descricao'], 0, $max_descricao) . '...' : $dados['descricao'];
                         ?>
                         <p class="card-text mb-a"><?= $descricao_resumida ?></p>
-
-                        <ul>
-                            <?php
-                            $ingredientes = explode(',', $dados['ingredientes']);
-                            $primeiros_ingredientes = array_slice($ingredientes, 0, 4);
-                            foreach ($primeiros_ingredientes as $ingrediente => $nome) {
-                            ?>
-                                <li><?= $nome ?></li>
-                            <?php } ?>
-                            <?php if (count($ingredientes) > 4) { ?>
-                                <li>...</li>
-                            <?php } ?>
-                        </ul>
+                        <p class="card-ingredients">Ingredientes: <?= $dados['ingredientes'] ?>.</p>
                     </div>
-
                     <div class="px-3 pb-3" style="margin-top: -15px">
-                        <a href="/adicionar-carrinho" id="<?= $dados['id'] ?>" class="btn btn-primary btn-block add-car">Adicionar ao carrinho</a>
+                        <a href="#" id="<?= $dados['id'] ?>" class="btn btn-primary btn-block add-car">Adicionar ao carrinho</a>
                     </div>
-
                 </div>
             </div>
         <?php } ?>
-
     </div>
-    </div>
-
     <div class="modal" tabindex="-1" role="dialog" id="myModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -83,5 +53,3 @@
             </div>
         </div>
     </div>
-
-</main>
