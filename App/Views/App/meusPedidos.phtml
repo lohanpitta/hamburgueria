@@ -9,26 +9,26 @@
 
     <?php } else { ?>
 
-    <?php foreach ($this->view->meusPedidos as $chave => $valor) { ?>
-        <div class="card card-color">
+    <?php foreach ($this->view->meusPedidos as $pedido => $dados_pedido) { ?>
+        <div class="card card-color mb-3">
             <div class="card-header d-flex cabecalho-pedidos">
-                <div>Número do pedido: #<?= $valor['id_pedido'] ?></div>
-                <div class="mx-auto">Status: <?= $valor['status'] ?></div>
-                <div class="mr-0">Valor total: R$ <?= $valor['valor'] ?></div>
+                <div>Número do pedido: #<?= $dados_pedido['id_pedido'] ?></div>
+                <div class="mx-auto">Status: <?= $dados_pedido['status'] ?></div>
+                <div class="mr-0">Valor total: R$ <?= $dados_pedido['valor'] ?></div>
             </div>
             <ul class="list-group list-group-flush">
 
-                <?php foreach (json_decode($this->view->meusPedidos[0]['hamburguers_pedido']) as $chave => $valor) { ?>
+                <?php foreach (json_decode($this->view->meusPedidos[$pedido]['hamburguers_pedido']) as $hamburguers => $dados_hamburguers) { ?>
                     <li class="list-group-item">
                         <div class="row d-flex align-items-center">
                             <div class="col-md-3">
                                 <img src="https://source.unsplash.com/286x180?hamburguer" class="img-fluid" style="width: 200; height: 100px;" alt="Hambúrguer 1">
                             </div>
                             <div class="col-md-6">
-                                <h5 class="card-title"><?= $valor->nome ?></h5>
+                                <h5 class="card-title"><?= $dados_hamburguers->nome ?></h5>
                             </div>
                             <div class="col-md-3">
-                                <span class="quantidade-item-pedido">Quantidade: <?= $valor->quantidade ?></span>
+                                <span class="quantidade-item-pedido">Quantidade: <?= $dados_hamburguers->quantidade ?></span>
                             </div>
                         </div>
                     </li>

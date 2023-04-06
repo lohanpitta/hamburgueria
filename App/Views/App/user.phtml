@@ -20,14 +20,13 @@
     }
 
     if (isset($_GET['meus_pedidos'])) {
-        verificadorDePermissao();
         require_once 'meusPedidos.phtml';
     }
 
     
     function verificadorDePermissao() {
         if($_SESSION['tipo'] == '1') {
-            header('LOCATION: /user');
+            header('LOCATION: /user?meus_pedidos');
         }
     }
 ?>

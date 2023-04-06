@@ -41,6 +41,7 @@ CREATE TABLE pedidos(
     id_usuario int NOT NULL,
     valor_total DECIMAL(10,2) NOT NULL,
     staus_pedido ENUM ('pendente', 'preparando', 'pronto', 'finalizado') DEFAULT 'pendente',
+    data TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 

@@ -19,7 +19,7 @@
                 <div class="card" style="width: 18rem;">
                     <a href="/item?id=<?= $dados['id'] ?>"><img class="card-img-top" src="https://source.unsplash.com/286x180?hamburguer" alt="Card image cap"></a>
                     <div class="card-body">
-                        <h5 class="card-title"><?= $dados['nome'] ?></h5>
+                        <h5 class="card-title text-center"><?= $dados['nome'] ?></h5>
                         <?php
                         $max_descricao = 100;
                         $descricao_resumida = (strlen($dados['descricao']) > $max_descricao) ? substr($dados['descricao'], 0, $max_descricao) . '...' : $dados['descricao'];

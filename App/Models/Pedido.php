@@ -132,9 +132,7 @@ class Pedido extends Model {
         WHERE
             p.id_usuario = :usuario_id AND p.status_pedido != 'finalizado'
         GROUP BY 
-            p.id;
-    
-
+            P.data DESC;
 
         ";
 
