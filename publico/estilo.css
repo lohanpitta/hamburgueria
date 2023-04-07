@@ -28,6 +28,7 @@
   
   .ingredientes {
     border: 1px solid #c3c3c3;
+    margin-left: 1px;
     border-radius: 5px;
     height: 50px;
   }
